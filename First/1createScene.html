@@ -1,0 +1,60 @@
+<!--
+ * @Author: luobr
+ * @Date: 2022-09-25 13:42:32
+ * @LastEditors: luobr
+ * @LastEditTime: 2022-09-25 14:35:04
+ * @Description: 创建第一个Three场景
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First ThreeJS Scene</title>
+    <style>
+        body { margin: 0; }
+    </style>
+    <!-- CDN导入Three.js方式一 -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.144.0/three.js"></script> --> 
+</head>
+<body>
+   <!-- CDN导入three.js方式二 -->
+    <script type ='module'>
+        import * as THREE from 'https://cdn.skypack.dev/three@0.144.0';
+        // 创建场景
+        const scene = new THREE.Scene();
+        // 透视摄像机
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        // 渲染器尺寸
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // 渲染器的dom元素添加到HTML文档中
+        document.body.appendChild(renderer.domElement);
+        // 几何体尺寸
+        const geometry = new THREE.BoxGeometry(0.5,4,2);
+        // 材质
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x00ff00
+        });
+        // 网格
+        const cube = new THREE.Mesh(geometry, material);
+        // 物体被添加到（0，0，0）上
+        scene.add(cube);
+        // 偏移一下摄像机位置
+        camera.position.z = 5;
+        function animate() {
+                // 动画帧 优点在于切换到别的标签页，会暂停，节省CPU资源
+				
+
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
+
+				renderer.render( scene, camera );
+                requestAnimationFrame( animate );
+			};
+
+			animate();
+    </script>
+</body>
+</html>
